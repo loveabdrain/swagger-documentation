@@ -19,5 +19,5 @@
             "VictoryGroup\\Swagger\\": "src/"
         }
     },
-    "minimum-stability": "alpha"
+    "version": "1.0"
 }
