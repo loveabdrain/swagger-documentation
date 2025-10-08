@@ -1,7 +1,7 @@
 {
     "name": "victorygroup/swagger-documentation",
     "description": "Responses for zircote/swagger-php",
-    "keywords": ["vicotrygroup", "swagger"],
+    "keywords": ["victorygroup"],
     "type": "library",
     "license": "MIT",
     "authors": [
