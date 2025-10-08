@@ -19,6 +19,7 @@
             "VictoryGroup\\Swagger\\": "src/"
         }
     },
-    "version": "1.0",
-    "minimum-stability": "stable"
+    "scripts": {
+        "generate-docs": "php generateDoc.php"
+    }
 }
