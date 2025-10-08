@@ -13,3 +13,8 @@ mkdir config && cp vendor/victorygroup/swagger-documentation/src/config/document
 ```bash
 cp vendor/victorygroup/swagger-documentation/src/generateDoc.php generateDoc.php
 ```
+
+## Generate doc
+```bash
+php generateDoc.php
+```
