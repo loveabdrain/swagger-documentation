@@ -18,6 +18,5 @@
         "psr-4": {
             "VictoryGroup\\Swagger\\": "src/"
         }
-    },
-    "minimum-stability": "stable"
+    }
 }
