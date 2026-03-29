@@ -1,12 +1,12 @@
 {
-    "name": "victorygroup/swagger-documentation",
+    "name": "loveabdrain/swagger-docs",
     "description": "Responses for zircote/swagger-php",
-    "keywords": ["victorygroup"],
+    "keywords": ["loveabdrain"],
     "type": "library",
     "license": "MIT",
     "authors": [
         {
-            "name": "Ilya Borovkikh",
+            "name": "loveabdrain",
             "email": "ilya.borovskih@icloud.com"
         }
     ],
@@ -16,10 +16,16 @@
     },
     "autoload": {
         "psr-4": {
-            "VictoryGroup\\Swagger\\": "src/"
+            "Loveabdrain\\SwaggerDocumentation\\": "src/"
         }
     },
-    "scripts": {
-        "generate-docs": "php generateDoc.php"
-    }
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Loveabdrain\\SwaggerDocumentation\\SwaggerDocumentationServiceProvider"
+            ]
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": false
 }

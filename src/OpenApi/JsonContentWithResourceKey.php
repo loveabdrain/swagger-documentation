@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace VictoryGroup\Swagger\OpenApi;
+namespace Loveabdrain\SwaggerDocumentation\OpenApi;
 
 use Attribute;
 use OpenApi\Attributes\Items;
@@ -18,71 +18,55 @@ final class JsonContentWithResourceKey extends JsonContent
         ?string $resourceKey = null,
         ?bool $dataIsArray = false,
         ?string $description = null,
-        ?string $action = null,
-        bool $success = true,
+        ?bool $pagination = false,
     ) {
-        $properties = [
-            new Property(
-                property: 'success',
-                example: $success,
-                type: 'bool',
-            ),
-            new Property(
-                property: 'action',
-                example: $action,
-                type: 'object',
-            ),
-        ];
-        if ($dataIsArray) {
-            $properties[] = new Property(
-                property: 'data',
-                type: 'object',
+        $resourceKey = $resourceKey ?: 'data';
+
+        if (!$dataIsArray) {
+            parent::__construct(
+                title: $title,
+                required: [$resourceKey],
                 properties: [
+                    new Property(
+                        property: $resourceKey,
+                        ref: $ref,
+                        type: 'object',
+                    ),
+                ],
+            );
+        }
+
+        parent::__construct(
+            title: $title,
+            required: array_merge([$resourceKey],
+                $pagination ?
+                    [
+                        'total',
+                        'per_page',
+                        'current_page',
+                        'last_page',
+                        'from',
+                        'to',
+                    ] : []
+            ),
+            properties: array_merge(
+                [
                     new Property(
                         property: $resourceKey,
                         description: $description,
                         type: 'array',
                         items: new Items(ref: $ref),
                     ),
-                ]
-            );
-        }
-        else {
-            if ($resourceKey) {
-                $properties[] = new Property(
-                    property: 'data',
-                    type: 'object',
-                    properties: [
-                        new Property(
-                            property: $resourceKey,
-                            description: $description,
-                            type: 'object',
-                            ref: $ref
-                        )
-                    ]
-                );
-            }
-            else {
-                $properties[] = new Property(
-                    property: 'data',
-                    type: 'object',
-                    ref: $ref
-                );
-            }
-        }
-        if ($resourceKey) {
-            parent::__construct(
-                title: $title,
-                required: [$resourceKey],
-                properties: $properties
-            );
-        }
-        else {
-            parent::__construct(
-                title: $title,
-                properties: $properties
-            );
-        }
-
+                ],
+                $pagination ? [
+                    new Property(property: 'total', description: 'Сколько всего элементов', type: 'integer'),
+                    new Property(property: 'per_page', description: 'Максимальное кол-во элементов на странице', type: 'integer'),
+                    new Property(property: 'current_page', description: 'Текущая страница', type: 'integer'),
+                    new Property(property: 'last_page', description: 'Последняя страница', type: 'integer'),
+                    new Property(property: 'from', description: 'Номер первой записи по порядку в текущей выборке', type: 'integer'),
+                    new Property(property: 'to', description: 'Номер последней записи по порядку в текущей выборке', type: 'integer'),
+                ] : [],
+            ),
+        );
     }
 }
