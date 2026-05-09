@@ -22,16 +22,16 @@ class SwaggerDocumentationCommand extends Command
         $generator = new Generator();
         $analysers = array_map(function($analyser){
             return new $analyser[0](...($analyser[1] ?? []));
-        }, config('Loveabdrain-documentation.analysers'));
+        }, config('loveabdrain-docs.analysers'));
         $analyser = new ReflectionAnalyser($analysers);
 
         $openapi = $generator
             ->setVersion(config('loveabdrain-docs.version'))
             ->setConfig([])
             ->setAnalyser($analyser)
-            ->generate(config('loveabdrain-documentation.inputPaths'));
+            ->generate(config('loveabdrain-docs.inputPaths'));
 
-        $outputPath = config('loveabdrain-documentation.outputPath');
+        $outputPath = config('loveabdrain-docs.outputPath');
         $openapi->saveAs($outputPath);
 
         $this->output->success("Documentation generated successfully and written to $outputPath");
